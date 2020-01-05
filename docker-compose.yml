@@ -50,7 +50,7 @@ services:
     environment:
       - TIME_ZONE=${TIME_ZONE}
       - PASSWORD=${SHADOWSOCKS_PASSWD} 
-      - METHOD=chacha20
+      - METHOD=chacha20-ietf-poly1305
       - TUN_PORT=80
     restart: always
     networks:
