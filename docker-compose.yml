@@ -107,6 +107,7 @@ services:
       - ${NGINX_SSL_PORT}:443
       - ${NGINX_SHADOWSOCKS_PORT}:1984
     volumes:
+      - ./nginx/cerbot:/home/nginx/cerbot/
       - ./nginx/ssl/:/etc/nginx/ssl/:ro
       - ./nginx/conf.d/:/etc/nginx/conf.d/:ro
       - ./nginx/assets/:/home/nginx/assets/
