@@ -46,6 +46,7 @@ services:
   seafile-db:
     image: mariadb:10.1
     container_name: seafile-db
+    restart: always
     environment:
       - TIME_ZONE=${TIME_ZONE}
       - MYSQL_ROOT_PASSWORD=${SEAFILE_DB_ROOT_PASSWD}
@@ -63,6 +64,7 @@ services:
   seafile:
     image: seafileltd/seafile-mc:latest
     container_name: seafile
+    restart: always
     environment:
       - TIME_ZONE=${TIME_ZONE}
       - DB_HOST=seafile-db
@@ -81,15 +83,14 @@ services:
     
   # shadowsocks (1 service)
   shadowsocks:
-    image: oddrationale/docker-shadowsocks:latest
+    image: mrjin/shadowsocks:alpine
     container_name: shadowsocks
+    restart: always
     environment:
       - TIME_ZONE=${TIME_ZONE}
-    command:
-      - -s 0.0.0.0
-      - -p 80
-      - -k $SHADOWSOCKS_PASSWD
-      - -m chacha20
+      - PASSWORD=${SHADOWSOCKS_PASSWD} 
+      - METHOD=chacha20
+      - TUN_PORT=80
     restart: always
     networks:
       - shadowsocks-network
