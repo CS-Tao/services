@@ -55,7 +55,7 @@ services:
       - /opt/seafile-db:/var/lib/mysql
     networks:
       - seafile-network
-  seafile-memcached:
+  memcached:
     image: memcached:1.5.6
     container_name: seafile-memcached
     entrypoint: memcached -m 256
@@ -75,7 +75,7 @@ services:
       - SEAFILE_SERVER_LETSENCRYPT=false
     depends_on:
       - seafile-db
-      - seafile-memcached
+      - memcached
     volumes:
       - seafile-db-v:/shared
     networks:
