@@ -8,6 +8,15 @@
 - docker
 - docker-compose
 
+## 现有集群
+
+- [x] whu-library-seat
+  - seat-db
+  - seat-recorder
+  - seat-ghauth
+- [x] shadowsocks
+- [x] nginx
+
 ## 部署方法
 
 1. 准备工作

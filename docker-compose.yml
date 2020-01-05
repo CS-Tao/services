@@ -41,45 +41,6 @@ services:
     restart: always
     networks:
       - seat-network
-
-  # seafile (3 services)
-  seafile-db:
-    image: mariadb:10.1
-    container_name: seafile-db
-    restart: always
-    environment:
-      - TIME_ZONE=${TIME_ZONE}
-      - MYSQL_ROOT_PASSWORD=${SEAFILE_DB_ROOT_PASSWD}
-      - MYSQL_LOG_CONSOLE=true
-    volumes:
-      - /opt/seafile-db:/var/lib/mysql
-    networks:
-      - seafile-network
-  memcached:
-    image: memcached:1.5.6
-    container_name: seafile-memcached
-    entrypoint: memcached -m 256
-    networks:
-      - seafile-network
-  seafile:
-    image: seafileltd/seafile-mc:latest
-    container_name: seafile
-    restart: always
-    environment:
-      - TIME_ZONE=${TIME_ZONE}
-      - DB_HOST=seafile-db
-      - DB_ROOT_PASSWD=${SEAFILE_DB_ROOT_PASSWD}
-      - SEAFILE_ADMIN_EMAIL=${SEAFILE_ADMIN_EMAIL}
-      - SEAFILE_ADMIN_PASSWORD=${SEAFILE_ADMIN_PASSWORD}
-      - SEAFILE_SERVER_HOSTNAME=${SEAFILE_SERVER_HOSTNAME}
-      - SEAFILE_SERVER_LETSENCRYPT=false
-    depends_on:
-      - seafile-db
-      - memcached
-    volumes:
-      - seafile-db-v:/shared
-    networks:
-      - seafile-network
     
   # shadowsocks (1 service)
   shadowsocks:
@@ -115,18 +76,14 @@ services:
     depends_on:
       - seat-recorder
       - seat-ghauth
-      - seafile
       - shadowsocks
     networks:
       - seat-network
-      - seafile-network
       - shadowsocks-network
 
 volumes:
   seat-db-v:
-  seafile-db-v:
 
 networks:
   seat-network:
-  seafile-network:
   shadowsocks-network:
