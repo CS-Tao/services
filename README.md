@@ -1,4 +1,4 @@
-[![Docker Image CI](https://github.com/CS-Tao/services/workflows/Docker%20Compose%20CI/badge.svg)](https://github.com/CS-Tao/whu-library-seat-docker/actions)
+[![Docker Image CI](https://github.com/CS-Tao/services/workflows/Docker%20Compose%20CI/badge.svg)](https://github.com/CS-Tao/services/actions)
 # services
 
 > 服务集群
@@ -22,7 +22,7 @@
     docker login docker.pkg.github.com
     ```
 
-1. 添加环境变量文件`.env`到项目根目录，复制`ci.env`内容到`.env`文件中，修改各项值
+1. 添加环境变量文件`.env`到项目根目录，复制`ci.env`内容到`.env`文件中，并修改其中各项环境变量的值
 
 1. 拉取镜像
 
@@ -36,4 +36,4 @@
     docker-compose up -d
     ```
 
-1. 如果`nginx/ssl`目录下没有 *.pem 文件（4 个），需在 nginx 容器内部执行`/home/nginx/cerbot/getcer.sh`脚本
+1. 容器启动后，如果`nginx/ssl`目录下没有 *.pem 文件（4 个），需在 nginx 容器内部执行`/home/nginx/cerbot/getcer.sh`脚本
