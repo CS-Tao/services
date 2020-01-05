@@ -1,0 +1,4 @@
+# enviroment file
+.env
+# upload folder only
+!.gitkeep
