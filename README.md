@@ -4,10 +4,10 @@
 
 ## 容器组
 
-- [ ] nginx
-- [ ] seafile
-- [ ] whu-library-seat
-- [ ] shadowsocks
+- [x] nginx
+- [x] seafile
+- [x] whu-library-seat
+- [x] shadowsocks
 - [ ] tools
   - [ ] cerbot-auto
 

@@ -1,0 +1,126 @@
+version: '3.1'
+
+services:
+  # whu-library-seat (3 services)
+  seat-db:
+    image: docker.pkg.github.com/cs-tao/whu-library-seat-docker/seat-db:1.0.0
+    container_name: seat-db
+    command:
+      - --default-authentication-plugin=mysql_native_password
+      - --character-set-server=utf8mb4
+      - --collation-server=utf8mb4_unicode_ci
+      - --skip-character-set-client-handshake
+    restart: always
+    environment:
+      MYSQL_DATABASE: seat-records
+      MYSQL_USER: whu-lib
+      MYSQL_PASSWORD: Ab12345678..c
+      MYSQL_ROOT_PASSWORD: ${SEAT_DB_ROOT_PASSWD}
+    volumes:
+      - seat-db-v:/var/lib/mysql/
+      - ./whu-library-seat/db_init_scripts/:/docker-entrypoint-initdb.d/
+    networks:
+      - seat-network
+  seat-recorder:
+    image: docker.pkg.github.com/cs-tao/whu-library-seat-docker/seat-records:1.0.0
+    container_name: seat-recorder
+    restart: always
+    depends_on:
+      - seat-db
+    networks:
+      - seat-network
+  seat-ghauth:
+    image: docker.pkg.github.com/cs-tao/whu-library-seat-docker/seat-ghauth:1.0.0
+    container_name: seat-ghauth
+    environment:
+      WHU_SEAT_CLIENT_SCERET: ${SEAT_GHAUTH_CLIENT_SCERET}
+    restart: always
+    networks:
+      - seat-network
+
+  # seafile (3 services)
+  seafile-db:
+    image: mariadb:10.1
+    container_name: seafile-db
+    environment:
+      - MYSQL_ROOT_PASSWORD=${SEAFILE_DB_ROOT_PASSWD}
+      - MYSQL_LOG_CONSOLE=true
+    volumes:
+      - /opt/seafile-db:/var/lib/mysql
+    networks:
+      - seafile-network
+  # seafile-memcached:
+  #   image: memcached:1.5.6
+  #   container_name: seafile-memcached
+  #   entrypoint: memcached -m 256
+  #   networks:
+  #     - seafile-network
+  seafile:
+    image: seafileltd/seafile-mc:latest
+    container_name: seafile
+    environment:
+      - TIME_ZONE=Asia/Shanghai
+      - DB_HOST=seafile-db
+      - DB_ROOT_PASSWD=${SEAFILE_DB_ROOT_PASSWD}
+      - SEAFILE_ADMIN_EMAIL=${SEAFILE_ADMIN_EMAIL}
+      - SEAFILE_ADMIN_PASSWORD=${SEAFILE_ADMIN_PASSWORD}
+      - SEAFILE_SERVER_HOSTNAME=${SEAFILE_SERVER_HOSTNAME}
+      - SEAFILE_SERVER_LETSENCRYPT=false
+    depends_on:
+      - seafile-db
+      # - seafile-memcached
+    volumes:
+      - seafile-db-v:/shared
+    networks:
+      - seafile-network
+    
+  # shadowsocks (1 service)
+  shadowsocks:
+    image: oddrationale/docker-shadowsocks:latest
+    container_name: shadowsocks
+    environment:
+      - SSPASSWORD=${SHADOWSOCKS_PASSWD}
+    command:
+      - -s 0.0.0.0
+      - -p 80
+      - -k $SSPASSWORD
+      - -m chacha20
+    restart: always
+    networks:
+      - shadowsocks-network
+
+  # global nginx
+  nginx:
+    image: docker.pkg.github.com/cs-tao/whu-library-seat-docker/seat-nginx:1.0.0
+    container_name: global-nginx
+    environment:
+      - TIME_ZONE=Asia/Shanghai
+      - CER_BOT_DOMAIN=cs-tao.cc
+      - CER_BOT_EMAIL=whucstao@qq.com
+    restart: always
+    ports:
+      - 443:443
+      - 2020:1984
+    volumes:
+      - ./nginx/ssl/:/etc/nginx/ssl/:ro
+      - ./nginx/conf.d/:/etc/nginx/conf.d/:ro
+      - ./nginx/assets/:/home/nginx/assets/
+      - ./nginx/logs/:/var/log/nginx/
+    depends_on:
+      - seat-recorder
+      - seat-ghauth
+      - seafile
+      - shadowsocks
+    networks:
+      - seat-network
+      - seafile-network
+      - shadowsocks-network
+
+volumes:
+  seat-db-v:
+  seafile-db-v:
+
+networks:
+  seat-network:
+  seafile-network:
+  shadowsocks-network:
