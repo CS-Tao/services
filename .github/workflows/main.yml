@@ -1,0 +1,30 @@
+name: Docker Compose CI
+
+on: [push]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@master
+    - name: Install docker-compose
+      env:
+        DOCKER_COMPOSE_VERSION: 1.24.1
+      run: |
+        sudo rm /usr/local/bin/docker-compose
+        curl -L https://github.com/docker/compose/releases/download/${DOCKER_COMPOSE_VERSION}/docker-compose-`uname -s`-`uname -m` > docker-compose
+        chmod +x docker-compose
+        sudo mv docker-compose /usr/local/bin
+    - name: Pull images
+      env:
+        DOCKER_PASSWORD: ${{ secrets.DOCKER_PASSWORD }}
+        GITHUB_PASSWORD: ${{ secrets.GITHUB_TOKEN }}
+      run: |
+        cp ci.env .env
+        docker login -u cstao -p ${DOCKER_PASSWORD}
+        docker login docker.pkg.github.com -u CS-Tao -p ${GITHUB_PASSWORD}
+        docker-compose pull
+    - name: Run containers
+      run: |
+        cp ci.env .env
+        docker-compose up -d

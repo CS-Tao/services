@@ -12,6 +12,7 @@ services:
       - --skip-character-set-client-handshake
     restart: always
     environment:
+      TIME_ZONE: ${TIME_ZONE}
       MYSQL_DATABASE: seat-records
       MYSQL_USER: whu-lib
       MYSQL_PASSWORD: Ab12345678..c
@@ -24,6 +25,8 @@ services:
   seat-recorder:
     image: docker.pkg.github.com/cs-tao/whu-library-seat-docker/seat-records:1.0.0
     container_name: seat-recorder
+    environment:
+      TIME_ZONE: ${TIME_ZONE}
     restart: always
     depends_on:
       - seat-db
@@ -33,6 +36,7 @@ services:
     image: docker.pkg.github.com/cs-tao/whu-library-seat-docker/seat-ghauth:1.0.0
     container_name: seat-ghauth
     environment:
+      TIME_ZONE: ${TIME_ZONE}
       WHU_SEAT_CLIENT_SCERET: ${SEAT_GHAUTH_CLIENT_SCERET}
     restart: always
     networks:
@@ -43,6 +47,7 @@ services:
     image: mariadb:10.1
     container_name: seafile-db
     environment:
+      - TIME_ZONE=${TIME_ZONE}
       - MYSQL_ROOT_PASSWORD=${SEAFILE_DB_ROOT_PASSWD}
       - MYSQL_LOG_CONSOLE=true
     volumes:
@@ -59,7 +64,7 @@ services:
     image: seafileltd/seafile-mc:latest
     container_name: seafile
     environment:
-      - TIME_ZONE=Asia/Shanghai
+      - TIME_ZONE=${TIME_ZONE}
       - DB_HOST=seafile-db
       - DB_ROOT_PASSWD=${SEAFILE_DB_ROOT_PASSWD}
       - SEAFILE_ADMIN_EMAIL=${SEAFILE_ADMIN_EMAIL}
@@ -79,11 +84,11 @@ services:
     image: oddrationale/docker-shadowsocks:latest
     container_name: shadowsocks
     environment:
-      - SSPASSWORD=${SHADOWSOCKS_PASSWD}
+      - TIME_ZONE=${TIME_ZONE}
     command:
       - -s 0.0.0.0
       - -p 80
-      - -k $SSPASSWORD
+      - -k $SHADOWSOCKS_PASSWD
       - -m chacha20
     restart: always
     networks:
@@ -94,13 +99,13 @@ services:
     image: docker.pkg.github.com/cs-tao/whu-library-seat-docker/seat-nginx:1.0.0
     container_name: global-nginx
     environment:
-      - TIME_ZONE=Asia/Shanghai
-      - CER_BOT_DOMAIN=cs-tao.cc
-      - CER_BOT_EMAIL=whucstao@qq.com
+      - TIME_ZONE=${TIME_ZONE}
+      - CER_BOT_DOMAIN=${NGINX_SSL_DOMAIN}
+      - CER_BOT_EMAIL=${NGINX_SSL_EMAIL}
     restart: always
     ports:
-      - 443:443
-      - 2020:1984
+      - ${NGINX_SSL_PORT}:443
+      - ${NGINX_SHADOWSOCKS_PORT}:1984
     volumes:
       - ./nginx/ssl/:/etc/nginx/ssl/:ro
       - ./nginx/conf.d/:/etc/nginx/conf.d/:ro
