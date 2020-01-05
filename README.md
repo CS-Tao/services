@@ -30,10 +30,10 @@
     docker-compose pull
     ```
 
+1. 如果`nginx/ssl`目录下没有 *.pem 文件（4 个），执行`nginx/cerbot/getcer.sh`脚本申请 https 认证
+
 1. 启动容器组
 
     ```bash
     docker-compose up -d
     ```
-
-1. 容器启动后，如果`nginx/ssl`目录下没有 *.pem 文件（4 个），需在 nginx 容器内部执行`/home/nginx/cerbot/getcer.sh`脚本
