@@ -1,20 +1,18 @@
-[![Docker Image CI](https://github.com/CS-Tao/services/workflows/Docker%20Compose%20CI/badge.svg)](https://github.com/CS-Tao/services/actions)
 # services
 
-> 服务集群
+Docker 服务集群
+
+[![Docker Image CI](https://github.com/CS-Tao/services/workflows/Docker%20Compose%20CI/badge.svg)](https://github.com/CS-Tao/services/actions)
 
 ## 项目依赖
 
 - docker
 - docker-compose
 
-## 现有集群
+## 已配置服务
 
 - [x] whu-library-seat
-  - seat-db
-  - seat-recorder
-  - seat-ghauth
-- [x] shadowsocks
+- [x] ssr
 - [x] nginx
 
 ## 部署方法
@@ -39,7 +37,7 @@
     docker-compose pull
     ```
 
-1. 如果`nginx/ssl`目录下没有 *.pem 文件（4 个），执行`nginx/cerbot/getcer.sh`脚本申请 https 认证
+1. 如果 nginx/ssl 目录下没有 *.pem 文件（4 个），执行`nginx/cerbot/getcer.sh`脚本进行 https 认证
 
 1. 启动容器组
 
