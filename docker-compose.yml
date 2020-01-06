@@ -27,6 +27,7 @@ services:
     container_name: seat-recorder
     environment:
       TIME_ZONE: ${TIME_ZONE}
+      DATABASE_HOST: seat-db
     restart: always
     depends_on:
       - seat-db
