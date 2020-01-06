@@ -3,7 +3,7 @@ version: '3.1'
 services:
   # whu-library-seat (3 services)
   seat-db:
-    image: docker.pkg.github.com/cs-tao/whu-library-seat-docker/seat-db:1.0.0
+    image: mysql:8.0.17
     container_name: seat-db
     command:
       - --default-authentication-plugin=mysql_native_password
