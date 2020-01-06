@@ -26,5 +26,4 @@ jobs:
         docker-compose pull
     - name: Run containers
       run: |
-        cp ci.env .env
         docker-compose up -d
