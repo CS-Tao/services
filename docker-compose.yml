@@ -47,7 +47,7 @@ services:
   portainer:
     image: portainer/portainer
     container_name: portainer
-    command: --admin-password '${PORTAINER_ADMIN_PASSWD_HASHED}''
+    command: --admin-password '${PORTAINER_ADMIN_PASSWD_HASHED}'
     environment:
       TIME_ZONE: ${TIME_ZONE}
     restart: always
