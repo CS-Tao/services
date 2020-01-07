@@ -1,7 +1,7 @@
 #!/bin/bash
 set -e
 
-[ ! -e data.sql ] && echo -e "\033[31m There is already a file named data.sql. \033[0m" && exit 1
+[ -e data.sql ] && echo -e "\033[31m There is already a file named data.sql. \033[0m" && exit 1
 
 echo -e "\033[33m Dumping data to data.sql ... \033[0m"
 
