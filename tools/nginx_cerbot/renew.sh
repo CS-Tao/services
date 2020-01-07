@@ -1,7 +1,7 @@
 #!/bin/bash
 set -e
 
-NGINX_SSL_FOLDER=../../nginx/ssl
+NGINX_SSL_FOLDER=`dirname $0`/../../nginx/ssl
 
 ./certbot-auto renew
 echo "Copy ssl files from /etc/letsencrypt/live/cs-tao.cc/..."
