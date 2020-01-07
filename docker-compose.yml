@@ -42,7 +42,21 @@ services:
     restart: always
     networks:
       - seat-network
-    
+
+  # portainer
+  portainer:
+    image: portainer/portainer
+    container_name: portainer
+    command: --admin-password '${PORTAINER_ADMIN_PASSWD_HASHED}''
+    environment:
+      TIME_ZONE: ${TIME_ZONE}
+    restart: always
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+      - portainer-v:/data
+    networks:
+      - portainer-network
+
   # global nginx
   nginx:
     image: nginx:latest
@@ -60,9 +74,11 @@ services:
     depends_on:
       - seat-recorder
       - seat-ghauth
+      - portainer
     networks:
       - seat-network
       - ssr-network
+      - portainer-network
 
   # ssr (1 service)
   ssr:
@@ -85,7 +101,9 @@ services:
 
 volumes:
   seat-db-v:
+  portainer-v:
 
 networks:
   seat-network:
   ssr-network:
+  portainer-network:
