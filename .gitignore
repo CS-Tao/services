@@ -11,3 +11,6 @@ nginx/assets/*
 !nginx/assets/404/
 # logs
 nginx/logs/*
+
+# tools
+tools/seat-db_data/data.sql
