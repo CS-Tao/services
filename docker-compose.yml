@@ -59,7 +59,7 @@ services:
 
   # gallery
   gallery:
-    image: docwhat/image-gallery
+    image: alterway/docker-image-gallery
     container_name: gallery
     environment:
       TIME_ZONE: ${TIME_ZONE}
