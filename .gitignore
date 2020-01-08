@@ -10,7 +10,7 @@ public
 nginx/ssl/*
 # binary
 nginx/assets/*
-!nginx/assets/404/
+!nginx/assets/ssr/
 # logs
 nginx/logs/*
 
