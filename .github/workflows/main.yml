@@ -25,13 +25,15 @@ jobs:
         docker login docker.pkg.github.com -u CS-Tao -p ${GITHUB_PASSWORD}
         docker-compose pull
     - name: Run containers
+      run: docker-compose up -d
+    - name: Generate compose graph
       run: |
-        docker-compose up -d
-    - name: Deploy docker-compose graph
+        mkdir public
+        cat docker-compose.yml | docker run -i funkwerk/compose_plantuml --link-graph | docker run -i think/plantuml > public/services_graph.svg
+    - name: Deploy compose graph
       uses: JamesIves/github-pages-deploy-action@releases/v2
       env:
         ACCESS_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         BASE_BRANCH: master
         BRANCH: gh-pages
         FOLDER: public
-        BUILD_SCRIPT: mkdir public cat docker-compose.yml | docker run -i funkwerk/compose_plantuml --link-graph | docker run -i think/plantuml > public/services_graph.svg
