@@ -14,3 +14,6 @@ nginx/logs/*
 
 # tools
 tools/seat-db_data/data.sql
+
+# gallery
+gallery/images/*
