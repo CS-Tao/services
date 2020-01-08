@@ -57,6 +57,19 @@ services:
     networks:
       - portainer-network
 
+  # gallery
+  gallery:
+    image: docwhat/image-gallery
+    container_name: gallery
+    environment:
+      TIME_ZONE: ${TIME_ZONE}
+      GALLERY_TITLE: My Gallery
+    restart: always
+    volumes:
+      - ./gallery/images/:/images/:ro
+    networks:
+      - gallery-network
+
   # global nginx
   nginx:
     image: nginx:latest
@@ -75,10 +88,12 @@ services:
       - seat-recorder
       - seat-ghauth
       - portainer
+      - gallery
     networks:
       - seat-network
       - ssr-network
       - portainer-network
+      - gallery-network
 
   # ssr (1 service)
   ssr:
@@ -107,3 +122,4 @@ networks:
   seat-network:
   ssr-network:
   portainer-network:
+  gallery-network:
