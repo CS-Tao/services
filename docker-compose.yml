@@ -1,4 +1,4 @@
-version: '3.1'
+version: '3.5'
 
 services:
   # whu-library-seat (3 services)
@@ -57,6 +57,21 @@ services:
     networks:
       - portainer-network
 
+  # gallery
+  gallery:
+    image: alterway/docker-image-gallery
+    container_name: gallery
+    environment:
+      TIME_ZONE: ${TIME_ZONE}
+      GALLERY_TITLE: My Gallery
+    restart: always
+    volumes:
+      - ./gallery/rewrite/index.html:/fgallery/view/index.html:ro
+      - ./gallery/rewrite/favicon.png:/fgallery/view/favicon.png:ro
+      - ./gallery/images/:/images/:ro
+    networks:
+      - gallery-network
+
   # global nginx
   nginx:
     image: nginx:latest
@@ -75,10 +90,12 @@ services:
       - seat-recorder
       - seat-ghauth
       - portainer
+      - gallery
     networks:
       - seat-network
       - ssr-network
       - portainer-network
+      - gallery-network
 
   # ssr (1 service)
   ssr:
@@ -101,9 +118,16 @@ services:
 
 volumes:
   seat-db-v:
+    name: seat-db-data
   portainer-v:
+    name: portainer-data
 
 networks:
   seat-network:
+    name: seat-network
   ssr-network:
+    name: ssr-network
   portainer-network:
+    name: portainer-network
+  gallery-network:
+    name: gallery-network

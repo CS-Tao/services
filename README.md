@@ -14,7 +14,10 @@ Docker 服务集群
 - [x] whu-library-seat
 - [x] ssr
 - [x] portainer
+- [x] gallery
 - [x] nginx
+
+![services_graph.svg](https://home.cs-tao.cc/services/services_graph.svg)
 
 ## 部署方法
 

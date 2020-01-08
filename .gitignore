@@ -2,6 +2,8 @@
 .env
 # upload folder only
 !.gitkeep
+# for ci
+public
 
 # whu-library-seat
 # ssl certificates
@@ -14,3 +16,6 @@ nginx/logs/*
 
 # tools
 tools/seat-db_data/data.sql
+
+# gallery
+gallery/images/*
