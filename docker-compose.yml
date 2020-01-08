@@ -66,6 +66,7 @@ services:
       GALLERY_TITLE: My Gallery
     restart: always
     volumes:
+      - ./gallery/view/:/fgallery/view:ro
       - ./gallery/images/:/images/:ro
     networks:
       - gallery-network
