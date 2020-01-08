@@ -14,6 +14,7 @@ Docker 服务集群
 - [x] whu-library-seat
 - [x] ssr
 - [x] portainer
+- [x] gallery
 - [x] nginx
 
 ## 部署方法
