@@ -17,6 +17,8 @@ Docker 服务集群
 - [x] gallery
 - [x] nginx
 
+![services_graph.svg](https://home.cs-tao.cc/services/services_graph.svg)
+
 ## 部署方法
 
 1. 准备工作

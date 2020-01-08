@@ -2,6 +2,8 @@
 .env
 # upload folder only
 !.gitkeep
+# for ci
+public
 
 # whu-library-seat
 # ssl certificates
