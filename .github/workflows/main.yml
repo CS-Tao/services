@@ -37,3 +37,5 @@ jobs:
         BASE_BRANCH: master
         BRANCH: gh-pages
         FOLDER: public
+      if: github.ref == 'refs/heads/master'
+
