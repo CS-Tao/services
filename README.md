@@ -11,12 +11,6 @@ Docker 服务集群
 
 ## 已配置服务
 
-- [x] whu-library-seat
-- [x] ssr
-- [x] portainer
-- [x] gallery
-- [x] nginx
-
 ![services_graph.svg](https://home.cs-tao.cc/services/services_graph.svg)
 
 ## 部署方法
@@ -40,8 +34,6 @@ Docker 服务集群
     ```bash
     docker-compose pull
     ```
-
-1. 如果 nginx/ssl 目录下没有 *.pem 文件（4 个），执行`tools/nginx_cerbot/getcer.sh`脚本进行 https 认证
 
 1. 启动容器组
 

@@ -1,21 +1,23 @@
 # enviroment file
 .env
-# upload folder only
-!.gitkeep
+
 # for ci
-public
+ci
 
-# whu-library-seat
-# ssl certificates
-nginx/ssl/*
-# binary
-nginx/assets/*
-!nginx/assets/ssr/
-# logs
-nginx/logs/*
+# bin
+bin/seat-db_data/data.sql
 
-# tools
-tools/seat-db_data/data.sql
+# caddy
+caddy/logs/*
+caddy/ssl/*
+# caddy binary assets
+caddy/www/assets/*
 
 # gallery
 gallery/images/*
+
+# v2ray
+v2ray/logs/*
+
+# upload folder only
+!.gitkeep
