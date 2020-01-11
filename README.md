@@ -39,9 +39,9 @@ Docker 服务集群
 
 - 打印 v2ray 链接和二维码到控制台
     ```bash
-    docker logs v2ray-info
+    docker logs v2ray-print
     # 或
-    cat v2ray/info/output.txt
+    cat v2ray/print/output.txt
     ```
 
 - 备份 seat-db 数据

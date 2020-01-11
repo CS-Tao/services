@@ -12,7 +12,6 @@ services:
       - --skip-character-set-client-handshake
     restart: always
     environment:
-      TIME_ZONE: ${TIME_ZONE}
       MYSQL_DATABASE: seat-records
       MYSQL_USER: whu-lib
       MYSQL_PASSWORD: Ab12345678..c
@@ -26,7 +25,6 @@ services:
     image: cstao/seat-records:1.0.1
     container_name: seat-recorder
     environment:
-      TIME_ZONE: ${TIME_ZONE}
       DATABASE_HOST: seat-db
     restart: always
     depends_on:
@@ -37,7 +35,6 @@ services:
     image: cstao/seat-ghauth:1.1.0
     container_name: seat-ghauth
     environment:
-      TIME_ZONE: ${TIME_ZONE}
       WHU_SEAT_CLIENT_SCERET: ${SEAT_GHAUTH_CLIENT_SCERET}
     restart: always
     networks:
@@ -48,8 +45,6 @@ services:
     image: portainer/portainer
     container_name: portainer
     command: --admin-password '${PORTAINER_ADMIN_PASSWD_HASHED}'
-    environment:
-      TIME_ZONE: ${TIME_ZONE}
     restart: always
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
@@ -62,7 +57,6 @@ services:
     image: alterway/docker-image-gallery
     container_name: gallery
     environment:
-      TIME_ZONE: ${TIME_ZONE}
       GALLERY_TITLE: My Gallery
     restart: always
     volumes:
@@ -77,7 +71,6 @@ services:
     image: cstao/docker-v2ray:latest
     container_name: v2ray
     environment:
-      TIME_ZONE: ${TIME_ZONE}
       CLIENTS_IDS: ${V2RAY_CLIENTS_IDS}
       CLIENTS_LEVELS: ${V2RAY_CLIENTS_LEVELS}
       CLIENTS_ALTERIDS: ${V2RAY_CLIENTS_ALTERIDS}
@@ -88,20 +81,15 @@ services:
       - ./v2ray/config.tmpl:/etc/v2ray/config.tmpl:ro
       - ./v2ray/start.sh:/etc/v2ray/start.sh
       - ./v2ray/logs/:/var/log/v2ray/
-      - ./v2ray/info/:/var/v2ray/info/
+      - ./v2ray/print/:/var/v2ray/print/
     networks:
       - v2ray-network
-  v2ray-info:
-    image: nikolaik/python-nodejs:python3.7-nodejs13-alpine
-    container_name: v2ray-info
-    command: ["sh", "-c", "/var/v2ray/info/start.sh"]
-    environment:
-      TIME_ZONE: ${TIME_ZONE}
-      PORT: ${CADDY_SSL_PORT}
-      ADDRESS: world.cs-tao.cc
-      PS: Virmach
+  v2ray-print:
+    image: cstao/docker-v2ray-print
+    container_name: v2ray-print
+    command: ["-a", "world.cs-tao.cc", "-f", "ws", "-m", "port:${CADDY_SSL_PORT}", "-m", "tls:tls", "-m", "ps:Virmach"]
     volumes:
-      - ./v2ray/info/:/var/v2ray/info/
+      - ./v2ray/print/:/var/v2ray/volume/
     depends_on:
       - v2ray
 
@@ -110,8 +98,7 @@ services:
     image: abiosoft/caddy
     container_name: caddy
     environment:
-      - TIME_ZONE=${TIME_ZONE}
-      - ACME_AGREE=true
+      ACME_AGREE: "true"
     restart: always
     ports:
       - ${CADDY_PORT}:80

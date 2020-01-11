@@ -18,10 +18,7 @@ gallery/images/*
 
 # v2ray
 v2ray/logs/*
-v2ray/info/*
-!v2ray/info/start.sh
-!v2ray/info/json2vmess.py
-!v2ray/info/index.js
+v2ray/print/*
 
 # upload folder only
 !.gitkeep
