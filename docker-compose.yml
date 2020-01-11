@@ -72,7 +72,7 @@ services:
     networks:
       - gallery-network
 
-  # v2ray
+  # v2ray (2 services)
   v2ray:
     image: docker.pkg.github.com/cs-tao/docker-v2ray/docker-v2ray:master
     container_name: v2ray
@@ -82,12 +82,28 @@ services:
       CLIENTS_LEVELS: ${V2RAY_CLIENTS_LEVELS}
       CLIENTS_ALTERIDS: ${V2RAY_CLIENTS_ALTERIDS}
       CLIENTS_EMAILS: ${V2RAY_CLIENTS_EMAILS}
+    command: ["bash", "-c", "/etc/v2ray/start.sh"]
     restart: always
     volumes:
       - ./v2ray/config.tmpl:/etc/v2ray/config.tmpl:ro
+      - ./v2ray/start.sh:/etc/v2ray/start.sh
       - ./v2ray/logs/:/var/log/v2ray/
+      - ./v2ray/info/:/var/v2ray/info/
     networks:
       - v2ray-network
+  v2ray-info:
+    image: nikolaik/python-nodejs:python3.7-nodejs13-alpine
+    container_name: v2ray-info
+    command: ["sh", "-c", "/var/v2ray/info/start.sh"]
+    environment:
+      TIME_ZONE: ${TIME_ZONE}
+      PORT: ${CADDY_SSL_PORT}
+      ADDRESS: world.cs-tao.cc
+      PS: Virmach
+    volumes:
+      - ./v2ray/info/:/var/v2ray/info/
+    depends_on:
+      - v2ray
 
   # caddy
   caddy:

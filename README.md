@@ -40,3 +40,22 @@ Docker 服务集群
     ```bash
     docker-compose up -d
     ```
+
+## 其它操作
+
+- 打印 v2ray 链接和二维码到控制台
+    ```bash
+    docker logs v2ray-info
+    # 或
+    cat v2ray/info/output.txt
+    ```
+
+- 备份 seat-db 数据
+    ```bash
+    ./bin/seat-db_data/dump_data.sh
+    ```
+
+- 恢复 seat-db 数据
+    ```bash
+    ./bin/seat-db_data/restore_data.sh
+    ```
