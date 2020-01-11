@@ -5,21 +5,24 @@ if (process.argv.length < 2) {
   process.exit(1)
 }
 
-var urls = process.argv.filter(arg => !arg.match(/^\s+$/))
-
-for (var i = 2; i < urls.length; i++) {
-  var url = urls[i]
-  qrcode.generate(url, {small: true}, function (qrcode) {
-    if (i === 2) {
-      console.log('\n------------------------ QR Code ----------------------')
-      console.log(qrcode)
-      console.log("---------------------- Vmess link ---------------------\n")
-      console.log(url)
-    } else {
-      console.log(`\n----------------------- QR Code ${i - 2} ---------------------`)
-      console.log(qrcode)
-      console.log(`--------------------- Vmess link ${i - 2} --------------------\n`)
-      console.log(url)
-    }
+var urls = process.argv
+  .filter((arg, index) =>
+    index > 1 && arg.match(/vmess:.\/\/*?/)
+  )
+  .map(url => {
+    return url.replace('\r', '')
   })
+
+urls.forEach(url => {
+  console.log('---------------------------- QR Code --------------------------')
+  qrcode.generate(url, {small: true})
+  console.log("-------------------------- Vmess link -------------------------")
+  console.log(url)
+})
+  
+if (urls.length > 1) {
+  console.log('---------------------------- QR Code --------------------------')
+  qrcode.generate(urls.join('\n'), {small: true})
+  console.log("-------------------------- Vmess links -------------------------")
+  console.log(urls.join('\n'))
 }
