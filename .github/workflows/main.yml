@@ -21,11 +21,8 @@ jobs:
         docker-compose pull
     - name: Run containers
       run: |
-        docker-compose up -d
-    - name: Show v2ray info
-      run: |
-        sleep 10s
-        cat v2ray/info/output.txt
+        docker-compose up -t 10
+        docker logs v2ray-info
     - name: Generate compose graph
       run: |
         mkdir ci
