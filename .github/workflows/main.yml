@@ -18,7 +18,6 @@ jobs:
     - name: Pull images
       run: |
         cp ci.env .env
-        docker login docker.pkg.github.com -u CS-Tao -p ${{ secrets.GITHUB_TOKEN }}
         docker-compose pull
     - name: Run containers
       run: |

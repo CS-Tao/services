@@ -23,7 +23,7 @@ services:
     networks:
       - seat-network
   seat-recorder:
-    image: docker.pkg.github.com/cs-tao/whu-library-seat-docker/seat-records:1.0.1
+    image: cstao/seat-records:1.0.1
     container_name: seat-recorder
     environment:
       TIME_ZONE: ${TIME_ZONE}
@@ -34,7 +34,7 @@ services:
     networks:
       - seat-network
   seat-ghauth:
-    image: docker.pkg.github.com/cs-tao/whu-library-seat-docker/seat-ghauth:1.1.0
+    image: cstao/seat-ghauth:1.1.0
     container_name: seat-ghauth
     environment:
       TIME_ZONE: ${TIME_ZONE}
@@ -74,7 +74,7 @@ services:
 
   # v2ray (2 services)
   v2ray:
-    image: docker.pkg.github.com/cs-tao/docker-v2ray/docker-v2ray:master
+    image: cstao/docker-v2ray:latest
     container_name: v2ray
     environment:
       TIME_ZONE: ${TIME_ZONE}
