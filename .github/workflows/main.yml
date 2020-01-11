@@ -19,10 +19,6 @@ jobs:
       run: |
         cp ci.env .env
         docker-compose pull
-    - name: Run containers
-      run: |
-        docker-compose up -t 10
-        docker logs v2ray-info
     - name: Generate compose graph
       run: |
         mkdir ci
