@@ -38,4 +38,3 @@ jobs:
         BRANCH: gh-pages
         FOLDER: ci
       if: github.ref == 'refs/heads/master'
-
