@@ -23,6 +23,8 @@ services:
       MYSQL_USER: whu-lib
       MYSQL_PASSWORD: Ab12345678..c
       MYSQL_ROOT_PASSWORD: ${SEAT_DB_ROOT_PASSWD}
+    depends_on:
+      - seat-db-backup
     volumes:
       - seat-db-v:/var/lib/mysql/
       - ./seat/db_init_scripts/:/docker-entrypoint-initdb.d/
