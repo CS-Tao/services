@@ -102,7 +102,7 @@ services:
     container_name: v2ray-print
     command: ["-a", "world.cs-tao.cc", "-f", "ws", "-m", "port:${CADDY_SSL_PORT}", "-m", "tls:tls", "-m", "ps:Virmach"]
     environment:
-      SAY_GOODBYE: "\033[32mWelcome to the new world! Now you can fly to any place you want. Enjoy yourself.\033[0m\n"
+      SAY_GOODBYE: "\\033[32mWelcome to the new world! Now you can fly to any place you want. Enjoy yourself.\\033[0m\n"
     volumes:
       - ./v2ray/print/:/var/v2ray/volume/
     depends_on:
