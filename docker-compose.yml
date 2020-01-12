@@ -128,6 +128,8 @@ volumes:
     name: portainer-data
 
 networks:
+  default:
+    name: services-network
   seat-network:
     name: seat-network
   v2ray-network:
