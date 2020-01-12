@@ -16,26 +16,18 @@ jobs:
         chmod +x docker-compose
         sudo mv docker-compose /usr/local/bin
     - name: Pull images
-      env:
-        DOCKER_PASSWORD: ${{ secrets.DOCKER_PASSWORD }}
-        GITHUB_PASSWORD: ${{ secrets.GITHUB_TOKEN }}
       run: |
         cp ci.env .env
-        docker login -u cstao -p ${DOCKER_PASSWORD}
-        docker login docker.pkg.github.com -u CS-Tao -p ${GITHUB_PASSWORD}
         docker-compose pull
-    - name: Run containers
-      run: docker-compose up -d
     - name: Generate compose graph
       run: |
-        mkdir public
-        cat docker-compose.yml | docker run -i funkwerk/compose_plantuml --link-graph | docker run -i think/plantuml > public/services_graph.svg
+        mkdir ci
+        cat docker-compose.yml | docker run -i funkwerk/compose_plantuml --link-graph | docker run -i think/plantuml > ci/services_graph.svg
     - name: Deploy compose graph
       uses: JamesIves/github-pages-deploy-action@releases/v2
       env:
         ACCESS_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         BASE_BRANCH: master
         BRANCH: gh-pages
-        FOLDER: public
+        FOLDER: ci
       if: github.ref == 'refs/heads/master'
-
