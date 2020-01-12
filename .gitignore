@@ -4,9 +4,6 @@
 # for ci
 ci
 
-# bin
-bin/seat-db_data/data.sql
-
 # caddy
 caddy/logs/*
 caddy/ssl/*
