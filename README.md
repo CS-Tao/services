@@ -46,10 +46,11 @@ Docker 服务集群
 
 - 备份 seat-db 数据
     ```bash
-    ./bin/seat-db_data/dump_data.sh
+    docker run --rm --volumes-from seat-db-backup -v $(pwd):/backup alpine tar cvf /backup/backup.tar /var/lib/mysql
     ```
 
 - 恢复 seat-db 数据
     ```bash
-    ./bin/seat-db_data/restore_data.sh
+    docker run --rm --volumes-from <new_container> -v $(pwd):/backup alpine tar -xvf /backup/backup.tar
     ```
+    *如果 <new_container> 正在运行，需要重启该容器*

@@ -1,9 +1,16 @@
 version: '3.5'
 
 services:
-  # seat (3 services)
+  # seat (4 services)
+  seat-db-backup:
+    image: mysql
+    container_name: seat-db-backup
+    command: echo "Data-only container for seat-db"
+    volumes:
+      - seat-db-v:/var/lib/mysql/:ro
+
   seat-db:
-    image: mysql:8.0.17
+    image: mysql
     container_name: seat-db
     command:
       - --default-authentication-plugin=mysql_native_password
@@ -21,6 +28,7 @@ services:
       - ./seat/db_init_scripts/:/docker-entrypoint-initdb.d/
     networks:
       - seat-network
+
   seat-recorder:
     image: cstao/seat-records:1.0.1
     container_name: seat-recorder
@@ -31,6 +39,7 @@ services:
       - seat-db
     networks:
       - seat-network
+
   seat-ghauth:
     image: cstao/seat-ghauth:1.1.0
     container_name: seat-ghauth
@@ -39,6 +48,7 @@ services:
     restart: always
     networks:
       - seat-network
+
 
   # portainer
   portainer:
@@ -51,6 +61,7 @@ services:
       - portainer-v:/data
     networks:
       - portainer-network
+
 
   # gallery
   gallery:
@@ -66,9 +77,10 @@ services:
     networks:
       - gallery-network
 
+
   # v2ray (2 services)
   v2ray:
-    image: cstao/docker-v2ray:latest
+    image: cstao/docker-v2ray
     container_name: v2ray
     environment:
       CLIENTS_IDS: ${V2RAY_CLIENTS_IDS}
@@ -84,6 +96,7 @@ services:
       - ./v2ray/print/:/var/v2ray/print/
     networks:
       - v2ray-network
+
   v2ray-print:
     image: cstao/docker-v2ray-print
     container_name: v2ray-print
@@ -92,6 +105,7 @@ services:
       - ./v2ray/print/:/var/v2ray/volume/
     depends_on:
       - v2ray
+
 
   # caddy
   caddy:
