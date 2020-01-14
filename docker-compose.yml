@@ -23,6 +23,8 @@ services:
       MYSQL_USER: whu-lib
       MYSQL_PASSWORD: Ab12345678..c
       MYSQL_ROOT_PASSWORD: ${SEAT_DB_ROOT_PASSWD}
+    depends_on:
+      - seat-db-backup
     volumes:
       - seat-db-v:/var/lib/mysql/
       - ./seat/db_init_scripts/:/docker-entrypoint-initdb.d/
@@ -30,7 +32,7 @@ services:
       - seat-network
 
   seat-recorder:
-    image: cstao/seat-records:1.0.1
+    image: cstao/seat-records:1.1.0
     container_name: seat-recorder
     environment:
       DATABASE_HOST: seat-db
@@ -80,13 +82,10 @@ services:
 
   # v2ray (2 services)
   v2ray:
-    image: cstao/docker-v2ray
+    image: cstao/docker-v2ray:v2.0.0
     container_name: v2ray
     environment:
-      CLIENTS_IDS: ${V2RAY_CLIENTS_IDS}
-      CLIENTS_LEVELS: ${V2RAY_CLIENTS_LEVELS}
-      CLIENTS_ALTERIDS: ${V2RAY_CLIENTS_ALTERIDS}
-      CLIENTS_EMAILS: ${V2RAY_CLIENTS_EMAILS}
+      REPLACEMENTS: ${V2RAY_REPLACEMENTS}
     command: ["bash", "-c", "/etc/v2ray/start.sh"]
     restart: always
     volumes:
@@ -101,6 +100,8 @@ services:
     image: cstao/docker-v2ray-print
     container_name: v2ray-print
     command: ["-a", "world.cs-tao.cc", "-f", "ws", "-m", "port:${CADDY_SSL_PORT}", "-m", "tls:tls", "-m", "ps:Virmach"]
+    environment:
+      SAY_GOODBYE: "\\033[32mWelcome to the new world! Now you can fly to any place you want. Enjoy yourself.\\033[0m\n"
     volumes:
       - ./v2ray/print/:/var/v2ray/volume/
     depends_on:
@@ -113,6 +114,13 @@ services:
     container_name: caddy
     environment:
       ACME_AGREE: "true"
+      DOMAIN_ASSETS: ${CADDY_DOMAIN_ASSETS}
+      DOMAIN_GALLERY: ${CADDY_DOMAIN_GALLERY}
+      DOMAIN_PORTAINER: ${CADDY_DOMAIN_PORTAINER}
+      DOMAIN_SEAT_GHAUTH: ${CADDY_DOMAIN_SEAT_GHAUTH}
+      DOMAIN_SEAT_RECORDER: ${CADDY_DOMAIN_SEAT_RECORDER}
+      DOMAIN_V2RAY: ${CADDY_DOMAIN_V2RAY}
+      V2RAY_WS_PATH: ${CADDY_V2RAY_WS_PATH}
     restart: always
     ports:
       - ${CADDY_PORT}:80
