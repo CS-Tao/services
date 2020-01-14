@@ -1,24 +1,40 @@
 {
-  "log": {
-    "loglevel": "warning",
-    "access": "/var/log/v2ray/access.log",
-	  "error": "/var/log/v2ray/error.log"
-  },
   "inbounds": [
     {
       "port": 80,
       "protocol": "vmess",
       "settings": {
-        "clients": [{CLIENTS_TEMPLATE}]
+        "clients": [
+          {
+            "id": "{UUID_1}",
+            "alterId": 64,
+            "level": 1
+          },
+          {
+            "id": "{UUID_2}",
+            "alterId": 64,
+            "level": 1
+          },
+          {
+            "id": "{UUID_3}",
+            "alterId": 64,
+            "level": 2
+          }
+        ]
       },
       "streamSettings": {
         "network": "ws",
         "wsSettings": {
-          "path": "/ws"
+          "path": "{WS_PATH}"
         }
       }
     }
   ],
+  "log": {
+    "access": "/var/log/v2ray/access.log",
+    "error": "/var/log/v2ray/error.log",
+    "loglevel": "warning"
+  },
   "outbounds": [
     {
       "protocol": "freedom",
