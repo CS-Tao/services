@@ -97,7 +97,7 @@ services:
       - v2ray-network
 
   v2ray-print:
-    image: cstao/docker-v2ray-print
+    image: cstao/docker-v2ray-print:v1.0.0
     container_name: v2ray-print
     command: ["-a", "world.cs-tao.cc", "-f", "ws", "-m", "port:${CADDY_SSL_PORT}", "-m", "tls:tls", "-m", "ps:Virmach"]
     environment:
