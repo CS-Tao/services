@@ -12,10 +12,14 @@ caddy/www/assets/*
 
 # gallery
 gallery/images/*
+gallery/temp/*
 
 # v2ray
 v2ray/logs/*
 v2ray/print/*
+
+# seat
+seat/backup/*.sql.gz
 
 # upload folder only
 !.gitkeep
