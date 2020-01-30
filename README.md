@@ -44,13 +44,12 @@ Docker 服务集群
     cat v2ray/print/output.txt
     ```
 
-- 备份 seat-db 数据
+- 查看 seat-db 备份数据
     ```bash
-    docker run --rm --volumes-from seat-db-backup -v $(pwd):/backup alpine tar cvf /backup/backup.tar /var/lib/mysql
+    docker exec seat-db-backup ls /backup
     ```
 
 - 恢复 seat-db 数据
     ```bash
-    docker run --rm --volumes-from <new_container> -v $(pwd):/backup alpine tar -xvf /backup/backup.tar
+    docker exec seat-db-backup /restore.sh /backup/latest.seat-records.sql.gz
     ```
-    *如果 <new_container> 正在运行，需要重启该容器*
