@@ -123,6 +123,7 @@ services:
     container_name: caddy
     environment:
       ACME_AGREE: "true"
+      CADDY_TLS_EMAIL: ${CADDY_TLS_EMAIL}
       DOMAIN_ASSETS: ${CADDY_DOMAIN_ASSETS}
       DOMAIN_GALLERY: ${CADDY_DOMAIN_GALLERY}
       DOMAIN_PORTAINER: ${CADDY_DOMAIN_PORTAINER}
