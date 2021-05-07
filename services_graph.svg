@@ -15,7 +15,7 @@ link caddy to seat-recorder--><path d="M359.3962,54.1114 C372.9091,63.1778 388.3
 link caddy to v2ray--><path d="M364.7076,39.5346 C402.8839,48.2614 461.1042,63.4462 509,84 C537.187,96.0961 566.9294,113.5905 589.6288,128.0637 " fill="none" id="caddy-&gt;v2ray" style="stroke: #A80036; stroke-width: 1.0; stroke-dasharray: 7.0,7.0;"/><polygon fill="#A80036" points="594.0722,130.9155,588.6585,122.688,589.8643,128.2148,584.3374,129.4206,594.0722,130.9155" style="stroke: #A80036; stroke-width: 1.0;"/><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacingAndGlyphs" textLength="75" x="545" y="97.0669">depends on</text><!--MD5=[70b74ef6bc6023f09562d52d3e6712c1]
 link seat-db-backup to seat-db--><path d="M748.9147,177.1354 C724.4771,198.0091 688.5459,228.7003 662.9754,250.5418 " fill="none" id="seat-db-backup-&gt;seat-db" style="stroke: #A80036; stroke-width: 1.0; stroke-dasharray: 7.0,7.0;"/><polygon fill="#A80036" points="658.9638,253.9684,668.405,251.1643,662.7656,250.7209,663.209,245.0814,658.9638,253.9684" style="stroke: #A80036; stroke-width: 1.0;"/><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacingAndGlyphs" textLength="75" x="714" y="220.0669">depends on</text><!--MD5=[4d3f771d130f28150a6fe835e6ab6ffc]
 link seat-recorder to seat-db--><path d="M515.0853,177.1354 C539.5229,198.0091 575.4541,228.7003 601.0246,250.5418 " fill="none" id="seat-recorder-&gt;seat-db" style="stroke: #A80036; stroke-width: 1.0; stroke-dasharray: 7.0,7.0;"/><polygon fill="#A80036" points="605.0362,253.9684,600.791,245.0814,601.2344,250.7209,595.595,251.1643,605.0362,253.9684" style="stroke: #A80036; stroke-width: 1.0;"/><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacingAndGlyphs" textLength="75" x="570" y="220.0669">depends on</text><!--MD5=[fe8e8bcbb6a738228159b75648eae89d]
-link v2ray-print to v2ray--><path d="M666.1597,54.1354 C658.3476,74.5796 646.937,104.4415 638.6295,126.1825 " fill="none" id="v2ray-print-&gt;v2ray" style="stroke: #A80036; stroke-width: 1.0; stroke-dasharray: 7.0,7.0;"/><polygon fill="#A80036" points="636.8007,130.9684,643.7497,123.9891,638.5854,126.2978,636.2767,121.1335,636.8007,130.9684" style="stroke: #A80036; stroke-width: 1.0;"/><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacingAndGlyphs" textLength="75" x="656" y="97.0669">depends on</text><!--MD5=[9d2eeb853498e62cb4a97665e2f28cdb]
+link v2ray-print to v2ray--><path d="M666.1597,54.1354 C658.3476,74.5796 646.937,104.4415 638.6295,126.1825 " fill="none" id="v2ray-print-&gt;v2ray" style="stroke: #A80036; stroke-width: 1.0; stroke-dasharray: 7.0,7.0;"/><polygon fill="#A80036" points="636.8007,130.9684,643.7497,123.9891,638.5854,126.2978,636.2767,121.1335,636.8007,130.9684" style="stroke: #A80036; stroke-width: 1.0;"/><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacingAndGlyphs" textLength="75" x="656" y="97.0669">depends on</text><!--MD5=[0230ebff747f9c03c7d34e284e01e611]
 @startuml
 skinparam componentStyle uml2
 [caddy]
@@ -38,11 +38,11 @@ skinparam componentStyle uml2
 
 @enduml
 
-PlantUML version 1.2019.11(Sun Sep 22 10:02:15 GMT 2019)
+PlantUML version 1.2020.06(Sun Apr 05 12:38:32 GMT 2020)
 (GPL source distribution)
 Java Runtime: OpenJDK Runtime Environment
 JVM: OpenJDK 64-Bit Server VM
-Java Version: 14-ea+15
+Java Version: 14-ea+33
 Operating System: Linux
 Default Encoding: UTF-8
 Language: en
