@@ -41,10 +41,11 @@ services:
       - seat-network
 
   seat-recorder:
-    image: cstao/seat-records:1.1.1
+    image: cstao/seat-records:1.1.2
     container_name: seat-recorder
     environment:
       DATABASE_HOST: seat-db
+      ENCRYPT_KEY: ${SEAT_RECORDS_ENCRYPT_KEY}
     restart: always
     depends_on:
       - seat-db
