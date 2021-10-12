@@ -41,7 +41,7 @@ services:
       - seat-network
 
   seat-recorder:
-    image: cstao/seat-records:1.1.0
+    image: cstao/seat-records:1.1.1
     container_name: seat-recorder
     environment:
       DATABASE_HOST: seat-db
